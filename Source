@@ -1,0 +1,243 @@
+-- CREATED BY Darth Vader#4663 ---
+
+
+
+local Players = game:GetService("Players")
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+
+-- Create Window
+local Window = Rayfield:CreateWindow({
+
+	Name = "Making Kids Cry",
+    getgenv().SecureMode == true, -- Secure Mode ON
+	LoadingTitle = "yes, the name is Making Kids Cry.",
+	LoadingSubtitle = "UI lib by Sirius, Code by Darth Vader#4663",
+	ConfigurationSaving = {
+		Enabled = true,
+		FolderName = nil, -- Create a custom folder for your hub/game
+		FileName = "MakingKidsCryRAGDOLLENGINE"
+
+        },
+        Discord = {
+        	Enabled = false,
+        	Invite = "eEPk9TMQ9g", -- The Discord invite code, do not include discord.gg/
+        	RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+        },
+	KeySystem = true, -- Set this to true to use our key system
+	KeySettings = {
+		Title = "Making Kids Cry",
+		Subtitle = "Key System",
+		Note = "Join the discord (discord.gg/eEPk9TMQ9g)",
+		FileName = "Key",
+		SaveKey = true,
+		GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+		Key = "l0lurm0m"
+	}
+})
+
+-- Tab 1
+local Tab = Window:CreateTab("Player", 4483362458) -- Title, Image
+local Section = Tab:CreateSection("Character")
+local Slider = Tab:CreateSlider({  -- Speed
+	Name = "WalkSpeed",
+	Range = {16, 400},
+	Increment = 16,
+	Suffix = "",
+	CurrentValue = 16,
+	Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+	end,
+})
+local Slider = Tab:CreateSlider({ -- Jump
+	Name = "JumpPower",
+	Range = {50, 600},
+	Increment = 10,
+	Suffix = "",
+	CurrentValue = 50,
+	Flag = "Slider2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+	end,
+})
+
+-- Buttons
+local Button = Tab:CreateButton({
+	Name = "Anti-Ragdoll",
+	Callback = function()
+		local LocalPlayerplayer = game.Players.LocalPlayer.Name
+		local wpp = game.Workspace:WaitForChild(LocalPlayerplayer)
+		wpp:WaitForChild("RagdollConstraints"):Destroy()
+		wpp:WaitForChild("RagdollMe"):Destroy()
+		wpp:WaitForChild("StartRagdoll"):Destroy()
+		wpp:WaitForChild("Pushed"):Destroy()
+		wpp:WaitForChild("Ragdoll_fall-starterCharacterScripts"):Destroy()
+	end,
+})
+
+
+local Button = Tab:CreateButton({
+	Name = "Fly (Hold E & [SPACE])",
+	Callback = function()
+		Rayfield:Notify({
+			Title = "Fly",
+			Content = "Hold E & [SPACE] to fly.",
+			Duration = 6.5,
+			Image = 4483362458,
+			Actions = { -- Notification Buttons
+				Ignore = {
+					Name = "Okay!",
+					Callback = function()
+						print("The user tapped Okay!")
+					end
+				},
+			},
+		})
+
+		local _a=game:GetService("UserInputService")local aa=false
+		_a.InputBegan:Connect(function(ba)
+		if(ba.KeyCode==Enum.KeyCode.E)then aa=true
+		game:GetService("Players").LocalPlayer.Character.Humanoid.Name="HumanoidSpeed"
+		while aa do print("Flying")
+		game:GetService("Players").LocalPlayer.Character.HumanoidSpeed.WalkSpeed=80
+		game:GetService("Players").LocalPlayer.Character.HumanoidSpeed:ChangeState("Swimming")wait()end end end)
+		_a.InputEnded:Connect(function(ba)
+		if(ba.KeyCode==Enum.KeyCode.E)then
+		game:GetService("Players").LocalPlayer.Character.HumanoidSpeed.Name="Humanoid"
+		game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed=16
+		print("Walking")aa=false end end)
+	end,
+})
+
+local Button = Tab:CreateButton({ -- CMD-X
+	Name = "CMD-X",
+	Callback = function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/Source"))()
+	end,
+})
+
+
+-- Map Section
+local Tab = Window:CreateTab("Map", 4483362458) -- Title, Image
+local Section = Tab:CreateSection("General")
+local Input = Tab:CreateInput({ -- Inputs Gravity
+	Name = "Gravity (Default = 196.2)",
+	PlaceholderText = "Enter number here",
+	RemoveTextAfterFocusLost = false,
+	Callback = function(Text)
+		game.Workspace.Gravity = Text
+	end,
+})
+
+local Button = Tab:CreateButton({
+	Name = "Show Landmines",
+	Callback = function()
+		Rayfield:Notify({
+			Title = "Map Change",
+			Content = "Changes to the map are only visible to YOU.",
+			Duration = 15,
+			Image = 4483362458,
+			Actions = { -- Notification Buttons
+				Ignore = {
+					Name = "Okay!",
+					Callback = function()
+						print("The user tapped Okay!")
+					end
+				},
+			},
+		})
+		while wait(1) do
+			for i , WorkspaceItems in pairs(game.Workspace:GetChildren()) do
+				if WorkspaceItems.Name == "Landmines" then
+					for i, Landminesgroups in pairs(WorkspaceItems:GetChildren()) do
+					if Landminesgroups.Name == "Landmine" then
+					for i, hit in pairs(Landminesgroups:GetChildren()) do
+					if hit.Name == "HitPart" then
+						hit.Transparency = 0
+					end
+					end
+				end
+			end
+		end
+	end
+	end
+	end,
+})
+
+local Button = Tab:CreateButton({ -- Btools
+	Name = "BTools",
+	Callback = function()
+		Rayfield:Notify({
+			Title = "BTools",
+			Content = "Changes made with BTools only appear to YOU.",
+			Duration = 15,
+			Image = 4483362458,
+			Actions = { -- Notification Buttons
+				Ignore = {
+					Name = "Okay!",
+					Callback = function()
+						print("The user tapped Okay!")
+					end
+				},
+			},
+		})
+
+		local Tool = Instance.new("HopperBin", game.Players.LocalPlayer.Backpack)
+		local Tool2 = Instance.new("HopperBin", game.Players.LocalPlayer.Backpack)
+		local Tool3 = Instance.new("HopperBin", game.Players.LocalPlayer.Backpack)
+		local Tool4 = Instance.new("HopperBin", game.Players.LocalPlayer.Backpack)
+		local Tool5 = Instance.new("HopperBin", game.Players.LocalPlayer.Backpack)
+		Tool.BinType = "Clone"
+		Tool2.BinType = "GameTool"
+		Tool3.BinType = "Hammer"
+		Tool4.BinType = "Script"
+		Tool5.BinType = "Grab"
+		Tool.TextureId = ""
+		Tool2.TextureId = ""
+		Tool3.TextureId = ""
+		Tool4.TextureId = ""
+		Tool5.TextureId = ""
+		Tool.Name = "Clone"
+		Tool2.Name = "GameTool"
+		Tool3.Name = "Hammer"
+		Tool4.Name = "Script"
+		Tool5.Name = "Grab"
+	end,
+})
+
+local Button = Tab:CreateButton({
+	Name = "Change Grass Color",
+	Callback = function()
+		local MapFolder = game.Workspace:WaitForChild("NewerMap")
+		local loc = MapFolder.Base
+			for i,v in pairs(loc:GetDescendants()) do
+				if v:IsA("Part") and v.Name == "Baseplate" then
+				local a = math.random(1,255)
+				local b = math.random(1,255)
+				local c = math.random(1,255)
+				v.Color = Color3.new(a, b, c)
+			end
+		end
+	end,
+})
+
+local Button = Tab:CreateButton({
+	Name = "Change Grass Material",
+	Callback = function()
+		local MapFolder = game.Workspace:WaitForChild("NewerMap")
+		local loc = MapFolder.Base
+			for i,v in pairs(loc:GetDescendants()) do
+				if v:IsA("Part") and v.Name == "Baseplate" then
+
+				local Materials = Enum.Material:GetEnumItems() -- Get a table of all the possible materials
+
+				local RandomMaterial = Materials[math.random(#Materials)]
+
+				local p =  RandomMaterial
+				v.Material = p
+			end
+	end
+	end,
+})
+
+-- finally, im done.
